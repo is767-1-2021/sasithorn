@@ -15,11 +15,14 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.amber,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: ProfilePage(title: 'Profile'),
     );
   }
 }
+
+/// Profile Page ///
 
 class ProfilePage extends StatefulWidget {
   ProfilePage({Key? key, required this.title}) : super(key: key);
@@ -31,24 +34,26 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
+    var entries;
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
+          centerTitle: true,
           backgroundColor: Colors.white,
           elevation: 4.0,
           actions: [
+            Icon(Icons.chat_bubble),
+            SizedBox(
+              width: 12.0,
+            ),
             Icon(Icons.settings),
+            SizedBox(
+              width: 12.0,
+            ),
           ],
+          leading: Icon(Icons.arrow_back),
           title: Text(
             "Profile",
             style: TextStyle(color: Colors.black),
@@ -96,70 +101,93 @@ class _ProfilePageState extends State<ProfilePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                FlatButton(
-                  onPressed: () {},
-                  color: Colors.teal.shade800,
-                  child: Text(
-                    "History Deal",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18.0,
+                SizedBox(
+                  width: 250,
+                  child: ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(primary: Colors.teal),
+                    onPressed: () {},
+                    icon: Icon(Icons.timelapse),
+                    label: Text(
+                      "History Deal",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20),
                     ),
                   ),
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 100.0, vertical: 14.0),
                 ),
                 SizedBox(
-                  height: 18.0,
-                ),
-                FlatButton(
-                  onPressed: () {},
-                  color: Colors.teal.shade800,
-                  child: Text(
-                    "Favorite Deal",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18.0,
-                    ),
-                  ),
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 110.0, vertical: 14.0),
+                  height: 12.0,
                 ),
                 SizedBox(
-                  height: 18.0,
-                ),
-                FlatButton(
-                  onPressed: () {},
-                  color: Colors.teal.shade800,
-                  child: Text(
-                    "Review",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18.0,
+                  width: 250,
+                  child: ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(primary: Colors.teal),
+                    onPressed: () {},
+                    icon: Icon(Icons.star),
+                    label: Text(
+                      "Favorit",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20),
                     ),
                   ),
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 120.0, vertical: 14.0),
                 ),
                 SizedBox(
-                  height: 60.0,
+                  height: 12.0,
                 ),
-                FlatButton(
-                  onPressed: () {},
-                  color: Colors.red.shade800,
-                  child: Text(
-                    "Log Out",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14.0,
+                SizedBox(
+                  width: 250,
+                  child: ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(primary: Colors.teal),
+                    onPressed: () {},
+                    icon: Icon(Icons.book),
+                    label: Text(
+                      "Review",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20),
                     ),
                   ),
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
+                ),
+                SizedBox(
+                  height: 12.0,
+                ),
+                SizedBox(
+                  width: 250,
+                  child: ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(primary: Colors.teal),
+                    onPressed: () {},
+                    icon: Icon(Icons.question_answer),
+                    label: Text(
+                      "Help",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 30.0,
+                ),
+                SizedBox(
+                  width: 120,
+                  child: ElevatedButton.icon(
+                    style:
+                        ElevatedButton.styleFrom(primary: Colors.red.shade700),
+                    onPressed: () {},
+                    icon: Icon(Icons.logout),
+                    label: Text(
+                      "Log Out",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16),
+                    ),
+                  ),
                 ),
               ],
             )
