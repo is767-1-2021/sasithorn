@@ -15,7 +15,7 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
-    final Titles = [
+    final List<String> ProfileTitles = [
       'History Deal',
       'WeDeal Rewards',
       'Favorite',
@@ -32,10 +32,10 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: Colors.amber,
+        backgroundColor: Colors.deepPurple[600],
         title: Text(
           'Profile',
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: Colors.white),
         ),
         actions: [
           PopupMenuButton(
@@ -108,7 +108,10 @@ class _ProfilePageState extends State<ProfilePage> {
                   return Card(
                     child: ListTile(
                       leading: Icon(icons[index]),
-                      title: Text(Titles[index]),
+                      title: Text(ProfileTitles[index]),
+                      onTap: () {
+                        Navigator.pushNamed(context, '/${index + 3}');
+                      },
                     ),
                   );
                 },
@@ -116,7 +119,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
-                primary: Colors.amber,
+                primary: Colors.deepPurple[600],
                 onPrimary: Colors.white,
               ),
               onPressed: () {},

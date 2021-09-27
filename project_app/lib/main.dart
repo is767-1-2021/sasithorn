@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_app/Pages/EditProfilePage.dart';
+import 'package:project_app/Pages/HistoryDealPage.dart';
 
 import 'Pages/ProfilePage.dart';
 import 'Pages/EditProfilePage.dart';
@@ -16,10 +17,11 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        initialRoute: '/1',
+        initialRoute: '/3',
         routes: <String, WidgetBuilder>{
           '/1': (context) => ProfilePage(),
           '/2': (context) => EditProfilePage(),
+          '/3': (context) => HistoryDealPage(),
         });
   }
 }
