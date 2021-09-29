@@ -15,6 +15,7 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.2
   provider: ^6.0.1
+  date_field: ^2.1.2
 
 dev_dependencies:
   flutter_test:
@@ -27,4 +28,12 @@ flutter:
   assets:
     - assets/profile.png
     - assets/profile2.jpg
+    - assets/kamu.jpg
+    - assets/krispykreme.jpg
+    - assets/levis.jpg
+    - assets/oishi.jpg
+    - assets/potatocorner.jpg
+    - assets/starbucks.jpg
+    - assets/swensens.jpg
+    - assets/shabu.jpg
 

@@ -1,6 +1,9 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:project_app/Pages/ProfileFormModel.dart';
 import 'package:provider/provider.dart';
+import 'package:date_field/date_field.dart';
 
 class EditProfilePage extends StatelessWidget {
   @override
@@ -28,6 +31,8 @@ class EditProfileForm extends StatefulWidget {
 }
 
 class _EditProfileFormState extends State<EditProfileForm> {
+  bool _isHiden = true;
+
   final _formKey = GlobalKey<FormState>();
   String? _userName;
   String? _firstName;
@@ -36,6 +41,8 @@ class _EditProfileFormState extends State<EditProfileForm> {
   int? _age;
   String? _gender;
   String? _email;
+  String? _changPassword;
+  String? _confirmPassword;
 
   @override
   Widget build(BuildContext context) {
@@ -114,23 +121,29 @@ class _EditProfileFormState extends State<EditProfileForm> {
               Container(
                 width: 500,
                 padding: EdgeInsets.all(10.0),
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    labelText: "Date of Birth",
+                child: DateTimeFormField(
+                  decoration: const InputDecoration(
                     enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(28.0),
-                      borderSide: BorderSide(color: Colors.deepPurple.shade600),
+                      borderRadius: BorderRadius.all(Radius.circular(28.0)),
+                      borderSide: BorderSide(color: Colors.deepPurple),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(28.0),
-                      borderSide: BorderSide(
-                        color: Colors.amber,
-                      ),
-                    ),
-                    hintText: "Enter date of birth",
-                    prefixIcon:
-                        Icon(Icons.calendar_today, color: Colors.black45),
+                        borderRadius: BorderRadius.all(Radius.circular(28.0)),
+                        borderSide: BorderSide(
+                          color: Colors.amber,
+                        )),
+                    hintText: "Pick date of birth",
+                    prefixIcon: Icon(Icons.calendar_today),
+                    suffixIcon: Icon(Icons.event_note),
+                    labelText: 'Date of Birth',
                   ),
+                  mode: DateTimeFieldPickerMode.date,
+                  autovalidateMode: AutovalidateMode.always,
+                  validator: (e) =>
+                      (e?.day ?? 0) == 1 ? 'Please select date of birth' : null,
+                  onDateSelected: (DateTime value) {
+                    print(value);
+                  },
                 ),
               ),
               Container(
@@ -194,6 +207,68 @@ class _EditProfileFormState extends State<EditProfileForm> {
                     hintText: "Enter email",
                     prefixIcon: Icon(Icons.mail_outline, color: Colors.black45),
                   ),
+                ),
+              ),
+              Container(
+                width: 500,
+                padding: EdgeInsets.all(10.0),
+                child: TextFormField(
+                  obscureText: _isHiden,
+                  decoration: InputDecoration(
+                      labelText: "Chang Password",
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(28.0),
+                        borderSide:
+                            BorderSide(color: Colors.deepPurple.shade600),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(28.0),
+                        borderSide: BorderSide(
+                          color: Colors.amber,
+                        ),
+                      ),
+                      hintText: "Enter new password",
+                      prefixIcon: Icon(Icons.password, color: Colors.black45),
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            _isHiden = !_isHiden;
+                          });
+                        },
+                        icon: Icon(
+                            _isHiden ? Icons.visibility : Icons.visibility_off),
+                      )),
+                ),
+              ),
+              Container(
+                width: 500,
+                padding: EdgeInsets.all(10.0),
+                child: TextFormField(
+                  obscureText: _isHiden,
+                  decoration: InputDecoration(
+                      labelText: "Confirm Password",
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(28.0),
+                        borderSide:
+                            BorderSide(color: Colors.deepPurple.shade600),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(28.0),
+                        borderSide: BorderSide(
+                          color: Colors.amber,
+                        ),
+                      ),
+                      hintText: "Enter new password",
+                      prefixIcon: Icon(Icons.password, color: Colors.black45),
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            _isHiden = !_isHiden;
+                          });
+                        },
+                        icon: Icon(
+                            _isHiden ? Icons.visibility : Icons.visibility_off),
+                      )),
                 ),
               ),
               Padding(padding: EdgeInsets.all(10)),
