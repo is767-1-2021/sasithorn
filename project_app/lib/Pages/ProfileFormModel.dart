@@ -8,6 +8,8 @@ class ProfileFromModel extends ChangeNotifier {
   int? _age;
   String? _gender;
   String? _email;
+  String? _changPassword;
+  String? _confirmPassword;
 
   get userName => this._userName;
 
@@ -55,6 +57,20 @@ class ProfileFromModel extends ChangeNotifier {
 
   set email(value) {
     this._email = value;
+    notifyListeners();
+  }
+
+  get changPassword => this._changPassword;
+
+  set changPassword(value) {
+    this._changPassword = value;
+    notifyListeners();
+  }
+
+  get confirmPassword => this._confirmPassword;
+
+  set confirmPassword(value) {
+    this._confirmPassword = value;
     notifyListeners();
   }
 }

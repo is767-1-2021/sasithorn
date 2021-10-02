@@ -72,6 +72,15 @@ class _EditProfileFormState extends State<EditProfileForm> {
                     prefixIcon: Icon(Icons.face_retouching_natural,
                         color: Colors.black45),
                   ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter username';
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    _userName = value;
+                  },
                 ),
               ),
               Container(
@@ -94,6 +103,15 @@ class _EditProfileFormState extends State<EditProfileForm> {
                     prefixIcon:
                         Icon(Icons.account_circle, color: Colors.black45),
                   ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter firstname';
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    _firstName = value;
+                  },
                 ),
               ),
               Container(
@@ -116,6 +134,15 @@ class _EditProfileFormState extends State<EditProfileForm> {
                     prefixIcon:
                         Icon(Icons.account_circle, color: Colors.black45),
                   ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter lastname';
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    _lastName = value;
+                  },
                 ),
               ),
               Container(
@@ -165,6 +192,18 @@ class _EditProfileFormState extends State<EditProfileForm> {
                     hintText: "Enter age",
                     prefixIcon: Icon(Icons.face, color: Colors.black45),
                   ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter age';
+                    }
+                    if (int.parse(value) < 18) {
+                      return 'Please enter valid age';
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    _age = int.parse(value!);
+                  },
                 ),
               ),
               Container(
@@ -186,6 +225,15 @@ class _EditProfileFormState extends State<EditProfileForm> {
                     hintText: "Enter gender",
                     prefixIcon: Icon(Icons.group, color: Colors.black45),
                   ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter gender';
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    _gender = value;
+                  },
                 ),
               ),
               Container(
@@ -207,6 +255,15 @@ class _EditProfileFormState extends State<EditProfileForm> {
                     hintText: "Enter email",
                     prefixIcon: Icon(Icons.mail_outline, color: Colors.black45),
                   ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter email';
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    _email = value;
+                  },
                 ),
               ),
               Container(
@@ -238,6 +295,15 @@ class _EditProfileFormState extends State<EditProfileForm> {
                         icon: Icon(
                             _isHiden ? Icons.visibility : Icons.visibility_off),
                       )),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter new password';
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    _changPassword = value;
+                  },
                 ),
               ),
               Container(
@@ -269,16 +335,27 @@ class _EditProfileFormState extends State<EditProfileForm> {
                         icon: Icon(
                             _isHiden ? Icons.visibility : Icons.visibility_off),
                       )),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter new password';
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    _confirmPassword = value;
+                  },
                 ),
               ),
               Padding(padding: EdgeInsets.all(10)),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/1');
                   if (_formKey.currentState!.validate()) {
-                    return;
+                    _formKey.currentState!.save();
+
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text('$_userName'),
+                    ));
                   }
-                  _formKey.currentState!.save();
                 },
                 style: ElevatedButton.styleFrom(
                   primary: Colors.deepPurple.shade600,

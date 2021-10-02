@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        initialRoute: '/3',
+        initialRoute: '/2',
         routes: <String, WidgetBuilder>{
           '/1': (context) => ProfilePage(),
           '/2': (context) => EditProfilePage(),

@@ -13,6 +13,8 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  String? _formKey = 'Please enter username';
+
   @override
   Widget build(BuildContext context) {
     final List<String> ProfileTitles = [
@@ -88,9 +90,6 @@ class _ProfilePageState extends State<ProfilePage> {
                     fontWeight: FontWeight.bold,
                     fontSize: 24),
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(5),
             ),
             TextButton(
                 onPressed: () {
