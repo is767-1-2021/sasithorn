@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
-class ProfileFromModel extends ChangeNotifier {
+class ProfileFormModel extends ChangeNotifier {
   String? _userName;
   String? _firstName;
   String? _lastName;

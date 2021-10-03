@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:project_app/Pages/ProfileFormModel.dart';
 import 'package:provider/provider.dart';
+import 'package:project_app/Model/ProfileFormModel.dart';
 
 var assetImage = AssetImage('assets/profile.png');
 var image = Image(
@@ -13,7 +13,7 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  String? _formKey = 'Please enter username';
+  String? _formData = 'Please enter username';
 
   @override
   Widget build(BuildContext context) {
@@ -82,18 +82,26 @@ class _ProfilePageState extends State<ProfilePage> {
               alignment: Alignment.topCenter,
             ),
             Padding(
-              padding: EdgeInsets.all(5),
-              child: Text(
-                'Harry Potter',
-                style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 24),
-              ),
-            ),
+                padding: EdgeInsets.all(10),
+                child:
+                    Consumer<ProfileFormModel>(builder: (context, form, child) {
+                  return Text(
+                    '${form.userName}',
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 24),
+                  );
+                })),
             TextButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/2');
+                onPressed: () async {
+                  var response = await Navigator.pushNamed(context, '/2');
+
+                  if (response != null && !response.toString().isEmpty) {
+                    setState(() {
+                      _formData = response.toString();
+                    });
+                  }
                 },
                 child: Text(
                   "Edit Profile",

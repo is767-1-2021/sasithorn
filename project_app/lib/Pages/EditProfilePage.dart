@@ -1,9 +1,7 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:project_app/Pages/ProfileFormModel.dart';
 import 'package:provider/provider.dart';
 import 'package:date_field/date_field.dart';
+import 'package:project_app/Model/ProfileFormModel.dart';
 
 class EditProfilePage extends StatelessWidget {
   @override
@@ -81,6 +79,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
                   onSaved: (value) {
                     _userName = value;
                   },
+                  initialValue: context.read<ProfileFormModel>().userName,
                 ),
               ),
               Container(
@@ -112,6 +111,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
                   onSaved: (value) {
                     _firstName = value;
                   },
+                  initialValue: context.read<ProfileFormModel>().firstName,
                 ),
               ),
               Container(
@@ -143,6 +143,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
                   onSaved: (value) {
                     _lastName = value;
                   },
+                  initialValue: context.read<ProfileFormModel>().lastName,
                 ),
               ),
               Container(
@@ -204,6 +205,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
                   onSaved: (value) {
                     _age = int.parse(value!);
                   },
+                  initialValue: context.read<ProfileFormModel>().age.toString(),
                 ),
               ),
               Container(
@@ -234,6 +236,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
                   onSaved: (value) {
                     _gender = value;
                   },
+                  initialValue: context.read<ProfileFormModel>().gender,
                 ),
               ),
               Container(
@@ -264,6 +267,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
                   onSaved: (value) {
                     _email = value;
                   },
+                  initialValue: context.read<ProfileFormModel>().email,
                 ),
               ),
               Container(
@@ -352,9 +356,14 @@ class _EditProfileFormState extends State<EditProfileForm> {
                   if (_formKey.currentState!.validate()) {
                     _formKey.currentState!.save();
 
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text('$_userName'),
-                    ));
+                    context.read<ProfileFormModel>().userName = _userName;
+                    context.read<ProfileFormModel>().firstName = _firstName;
+                    context.read<ProfileFormModel>().lastName = _lastName;
+                    context.read<ProfileFormModel>().age = _age;
+                    context.read<ProfileFormModel>().gender = _gender;
+                    context.read<ProfileFormModel>().email = _email;
+
+                    Navigator.pop(context);
                   }
                 },
                 style: ElevatedButton.styleFrom(

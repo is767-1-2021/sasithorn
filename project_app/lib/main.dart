@@ -1,12 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:project_app/Model/ProfileFormModel.dart';
 import 'package:project_app/Pages/EditProfilePage.dart';
 import 'package:project_app/Pages/HistoryDealPage.dart';
+import 'package:provider/provider.dart';
 
 import 'Pages/ProfilePage.dart';
 import 'Pages/EditProfilePage.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(
+        create: (context) => ProfileFormModel(),
+      ),
+    ],
+    child: MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -17,7 +26,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        initialRoute: '/2',
+        initialRoute: '/1',
         routes: <String, WidgetBuilder>{
           '/1': (context) => ProfilePage(),
           '/2': (context) => EditProfilePage(),
