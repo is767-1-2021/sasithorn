@@ -278,7 +278,9 @@ class _ProfilePageState extends State<ProfilePage> {
                       padding: EdgeInsets.all(5),
                       child: Card(
                         child: ListTile(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.pushNamed(context, '/4');
+                          },
                           title: Text(
                             'Help Center',
                             style: TextStyle(

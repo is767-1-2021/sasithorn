@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project_app/Model/ProfileFormModel.dart';
 import 'package:project_app/Pages/EditProfilePage.dart';
+import 'package:project_app/Pages/HelpCenterPage.dart';
 import 'package:project_app/Pages/HistoryDealPage.dart';
 import 'package:provider/provider.dart';
 
@@ -26,11 +27,12 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        initialRoute: '/1',
+        initialRoute: '/4',
         routes: <String, WidgetBuilder>{
           '/1': (context) => ProfilePage(),
           '/2': (context) => EditProfilePage(),
           '/3': (context) => HistoryDealPage(),
+          '/4': (context) => HelpCenterPage(),
         });
   }
 }
