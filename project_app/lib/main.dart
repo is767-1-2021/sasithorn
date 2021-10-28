@@ -5,7 +5,7 @@ import 'package:project_app/Pages/HelpCenterPage.dart';
 import 'package:project_app/Pages/HistoryDealPage.dart';
 import 'package:provider/provider.dart';
 
-import 'Pages/ProfilePage.dart';
+import 'Pages/MyProfilePage.dart';
 import 'Pages/EditProfilePage.dart';
 
 void main() {
@@ -27,9 +27,9 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        initialRoute: '/4',
+        initialRoute: '/1',
         routes: <String, WidgetBuilder>{
-          '/1': (context) => ProfilePage(),
+          '/1': (context) => MyProfilePage(),
           '/2': (context) => EditProfilePage(),
           '/3': (context) => HistoryDealPage(),
           '/4': (context) => HelpCenterPage(),
