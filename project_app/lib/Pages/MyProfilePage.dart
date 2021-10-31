@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:project_app/Model/ProfileFormModel.dart';
@@ -38,29 +36,33 @@ class _MyProfilePageState extends State<MyProfilePage> {
         ),
         actions: [
           PopupMenuButton(
-              icon: Icon(Icons.settings),
-              itemBuilder: (context) => [
-                    PopupMenuItem(
-                      child: Text('Notifications'),
-                      value: 1,
-                    ),
-                    PopupMenuItem(
-                      child: Text('Change Password'),
-                      value: 2,
-                    ),
-                    PopupMenuItem(
-                      child: Text('Location'),
-                      value: 3,
-                    ),
-                    PopupMenuItem(
-                      child: Text('Privacy Policy'),
-                      value: 4,
-                    ),
-                    PopupMenuItem(
-                      child: Text('Terms of service'),
-                      value: 5,
-                    ),
-                  ]),
+            icon: Icon(Icons.settings),
+            itemBuilder: (context) => [
+              PopupMenuItem(
+                child: Text('Change Password'),
+                value: 1,
+              ),
+              PopupMenuItem(
+                child: Text('Privacy Policy'),
+                value: 2,
+              ),
+              PopupMenuItem(
+                child: Text('Terms of service'),
+                value: 3,
+              ),
+            ],
+            onSelected: (result) {
+              if (result == 1) {
+                Navigator.pushNamed(context, '/5');
+              }
+              if (result == 2) {
+                Navigator.pushNamed(context, '/6');
+              }
+              if (result == 3) {
+                Navigator.pushNamed(context, '/7');
+              }
+            },
+          ),
           SizedBox(
             width: 12.0,
           )
@@ -90,7 +92,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Container(
-                          padding: EdgeInsets.only(left: 100),
+                          padding: EdgeInsets.only(left: 20),
                           child: Consumer<ProfileFormModel>(
                               builder: (context, form, child) {
                             return Row(
@@ -116,7 +118,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                               return Row(
                                 children: [
                                   Padding(
-                                    padding: EdgeInsets.only(left: 100),
+                                    padding: EdgeInsets.only(left: 20),
                                   ),
                                   Text(
                                     '${form.email}',
@@ -131,7 +133,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                           ),
                         ),
                         Container(
-                          padding: EdgeInsets.only(left: 100),
+                          padding: EdgeInsets.only(left: 20),
                           child: ElevatedButton(
                             onPressed: () async {
                               var response =
