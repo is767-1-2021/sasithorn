@@ -2,14 +2,55 @@ import 'dart:convert';
 
 import 'package:first_app/model/todo.dart';
 import 'package:http/http.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+abstract class Services {
+  Future<List<Todo>> getTodos();
+  Future<void> updateTodos(int id, bool completed);
+}
+
+class FirebaseServices extends Services {
+  @override
+  Future<List<Todo>> getTodos() async {
+    QuerySnapshot snapshot =
+        await FirebaseFirestore.instance.collection('todos').get();
+
+    AllTodos todos = AllTodos.fromSnapshot(snapshot);
+    return todos.todos;
+  }
+
+  CollectionReference todos = FirebaseFirestore.instance.collection('todos');
+
+  Future<void> UpdateTodos() async {
+    updateTodos(int id, bool completed) async {
+      await FirebaseFirestore.instance
+          .collection('todos')
+          .where('id', isEqualTo: id)
+          .limit(1)
+          .get()
+          .then((QuerySnapshot querySnapshot) {
+        return todos
+            .doc(todos.id)
+            .update({'completed': completed})
+            .then((value) => print("todos updated"))
+            .catchError((error) => print("Failed to update todos : $error"));
+      });
+    }
+  }
+
+  @override
+  Future<void> updateTodos(int id, bool completed) {
+    // TODO: implement updateTodos
+    throw UnimplementedError();
+  }
+}
 
 class HttpServices {
   Client client = Client();
 
   Future<List<Todo>> getTodos() async {
-    final response = await client.get(Uri.parse(
-      'https://jsonplaceholder.typicode.com/todos',
-    ));
+    final response = await client
+        .get(Uri.parse('https://jsonplaceholder.typicode.com/todos'));
 
     if (response.statusCode == 200) {
       var all = AllTodos.fromJson(

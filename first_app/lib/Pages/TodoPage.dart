@@ -1,6 +1,5 @@
 import 'package:first_app/controllers/todo.dart';
 import 'package:first_app/model/todo.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class TodoPage extends StatefulWidget {
@@ -17,7 +16,7 @@ class _TodoPageState extends State<TodoPage> {
   bool isLoading = false;
 
   @override
-  void intState() {
+  void iniState() {
     super.initState();
 
     widget.controller.onSync
@@ -32,17 +31,26 @@ class _TodoPageState extends State<TodoPage> {
     });
   }
 
+  void _updateTodos(int id, bool completed) async {
+    await widget.controller.updateTodos(id, completed);
+  }
+
   Widget get body => isLoading
       ? CircularProgressIndicator()
       : ListView.builder(
           itemCount: todos.isEmpty ? 1 : todos.length,
           itemBuilder: (context, index) {
             if (todos.isEmpty) {
-              return Text("Tap button to fetch Todos");
+              return Text("Tap Button to fetch Todos");
             }
 
             return CheckboxListTile(
-              onChanged: null,
+              onChanged: (bool? completed) {
+                setState(() {
+                  todos[index].completed = completed!;
+                  _updateTodos(todos[index].id, completed);
+                });
+              },
               value: todos[index].completed,
               title: Text(todos[index].title),
             );
