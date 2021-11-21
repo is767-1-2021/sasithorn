@@ -29,11 +29,6 @@ class _MyProfilePageState extends State<MyProfilePage> {
   ];
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -104,7 +99,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            '${context.read<ProfileFormModel>().userName}', //context.read<ProfileFormModel>().userName
+                            'userName', //${context.read<ProfileFormModel>().userName}
                             style: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold,
@@ -114,7 +109,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                             height: 5.0,
                           ),
                           Text(
-                            '${context.read<ProfileFormModel>().email}', //${context.read<ProfileFormModel>().email}
+                            'email', //${context.read<ProfileFormModel>().email}
                             style: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold,
