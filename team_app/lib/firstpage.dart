@@ -1,6 +1,8 @@
 // ignore: unused_import
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:team_app/login.dart';
+import 'package:team_app/model/profile_model.dart';
 import 'package:team_app/register.dart';
 
 void main() {

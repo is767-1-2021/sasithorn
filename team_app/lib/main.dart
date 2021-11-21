@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:team_app/edit_profile.dart';
 import 'package:team_app/firstpage.dart';
 import 'package:team_app/historyPageDeal.dart';
-import 'package:team_app/join_deal.dart';
+
 import 'package:team_app/login.dart';
+import 'package:team_app/model/profile_model.dart';
 import 'package:team_app/nav.dart';
-import 'package:provider/provider.dart';
 import 'package:team_app/services/deal_services.dart';
 import 'controllers/deal_controller.dart';
 import 'deal_page.dart';
-import 'model/user_model.dart';
 import 'profile.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -46,8 +46,8 @@ class DealApp extends StatelessWidget {
         '/Nav': (context) => Nav(
               controller: controller,
             ),
-        // '/editProfile': (context) => EditProfilePage(),
-        '/profile': (context) => ProfilePage(),
+        '/editProfile': (context) => EditProfilePage(),
+        '/profile': (context) => MyProfilePage(),
         '/historydeal': (context) => HistoryDealPage(),
         // '/joindeal': (context) => JoinDeal(ds: ds),
         '/DealPage': (context) => DealPage(controller: controller)
@@ -57,12 +57,21 @@ class DealApp extends StatelessWidget {
 }
 
 class MyApp extends StatelessWidget {
+  final DealController controller;
+  const MyApp({Key? key, required this.controller}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      // home: HomePage(),
-      initialRoute: '/Nav',
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => ProfileFormModel()),
+        Provider(create: (context) => UserDB()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        // home: HomePage(),
+        initialRoute: '/Nav',
+      ),
     );
   }
 }

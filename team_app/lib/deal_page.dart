@@ -227,7 +227,7 @@ class _DealPageState extends State<DealPage> {
                       TextStyle(color: Colors.deepPurple[900], fontSize: 15)),
               onTap: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ProfilePage()));
+                    MaterialPageRoute(builder: (context) => MyProfilePage()));
               },
               trailing: Icon(Icons.person_pin_rounded),
             ),

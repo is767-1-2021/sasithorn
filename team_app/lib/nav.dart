@@ -24,7 +24,7 @@ class _NavState extends State<Nav> {
     //   controller: controller,
     // ),
     LocationPage(),
-    ProfilePage(),
+    MyProfilePage(),
     ChatPage(),
   ];
 
