@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:date_field/date_field.dart';
+import 'package:team_app/Profile2.dart';
 import 'package:team_app/model/profile_model.dart';
 import 'package:team_app/model/user_model.dart';
 
@@ -18,7 +20,7 @@ class EditProfilePage extends StatelessWidget {
         leading: IconButton(
           onPressed: () {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => MyProfilePage()));
+                MaterialPageRoute(builder: (context) => Profile2Page()));
           },
           icon: Icon(Icons.arrow_back),
         ),
@@ -29,19 +31,28 @@ class EditProfilePage extends StatelessWidget {
 }
 
 class EditProfileForm extends StatefulWidget {
-  const EditProfileForm({Key? key}) : super(key: key);
-
   @override
   _EditProfileFormState createState() => _EditProfileFormState();
 }
 
 class _EditProfileFormState extends State<EditProfileForm> {
-  var _emailString = '';
-  var _passString = '';
-  var _userNameString = '';
-  var _isLoading = false;
+  final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
+      .collection('group_users')
+      .where('uid', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+      .snapshots();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  bool _isHiden = true;
 
   final _formKey = GlobalKey<FormState>();
+  String? _userName;
+  String? _fullname;
+  String? _phoneNo;
+  String? _email;
 
   @override
   Widget build(BuildContext context) {
@@ -55,70 +66,6 @@ class _EditProfileFormState extends State<EditProfileForm> {
                 width: 500,
                 padding: EdgeInsets.all(10.0),
                 child: TextFormField(
-                  decoration: InputDecoration(
-                    labelText: "Email",
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(28.0),
-                      borderSide: BorderSide(color: Colors.deepPurple.shade600),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(28.0),
-                      borderSide: BorderSide(
-                        color: Colors.amber,
-                      ),
-                    ),
-                    hintText: "Enter Email",
-                    prefixIcon: Icon(Icons.email, color: Colors.black45),
-                  ),
-                  validator: (val) {
-                    if (val == null || val.isEmpty) {
-                      return 'Please enter email';
-                    }
-                    return null;
-                  },
-                  onSaved: (val) {
-                    _emailString = val!;
-                  },
-                ),
-              ),
-              Container(
-                width: 500,
-                padding: EdgeInsets.all(10.0),
-                child: TextFormField(
-                    obscureText: true,
-                    autocorrect: false,
-                    decoration: InputDecoration(
-                      suffixIcon: Icon(Icons.lock),
-                      labelText: "Password",
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(28.0),
-                        borderSide:
-                            BorderSide(color: Colors.deepPurple.shade600),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(28.0),
-                        borderSide: BorderSide(
-                          color: Colors.amber,
-                        ),
-                      ),
-                      hintText: "Enter password",
-                      prefixIcon: Icon(Icons.password, color: Colors.black45),
-                    ),
-                    validator: (val) {
-                      if (val!.isEmpty || val.length < 8) {
-                        return 'Password must be at least 8 units';
-                      }
-                      return null;
-                    },
-                    onSaved: (val) {
-                      _passString = val!;
-                    }),
-              ),
-              Container(
-                width: 500,
-                padding: EdgeInsets.all(10.0),
-                child: TextFormField(
-                  keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
                     labelText: "Username",
                     enabledBorder: OutlineInputBorder(
@@ -135,38 +82,124 @@ class _EditProfileFormState extends State<EditProfileForm> {
                     prefixIcon: Icon(Icons.face_retouching_natural,
                         color: Colors.black45),
                   ),
-                  validator: (val) {
-                    if (val!.isEmpty || val.length < 3) {
-                      return 'Username must be at least 3 units';
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter username';
                     }
                     return null;
                   },
-                  onSaved: (val) {
-                    _userNameString = val!;
+                  onSaved: (value) {
+                    _userName = value;
                   },
                 ),
               ),
-              SizedBox(
-                height: 30,
-              ),
-              _isLoading
-                  ? CircularProgressIndicator()
-                  : Container(
-                      child: ElevatedButton(
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            _formKey.currentState!.save();
-
-                            Navigator.pop(context);
-                          }
-                        },
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.deepPurple.shade600,
-                          onPrimary: Colors.white,
-                        ),
-                        child: Text('Submit'),
+              Container(
+                width: 500,
+                padding: EdgeInsets.all(10.0),
+                child: TextFormField(
+                  decoration: InputDecoration(
+                    labelText: "Fullname",
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(28.0),
+                      borderSide: BorderSide(color: Colors.deepPurple.shade600),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(28.0),
+                      borderSide: BorderSide(
+                        color: Colors.amber,
                       ),
                     ),
+                    hintText: "Enter fullname",
+                    prefixIcon:
+                        Icon(Icons.accessibility, color: Colors.black45),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter fullname';
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    _fullname = value;
+                  },
+                ),
+              ),
+              Container(
+                width: 500,
+                padding: EdgeInsets.all(10.0),
+                child: TextFormField(
+                  decoration: InputDecoration(
+                    labelText: "Phone",
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(28.0),
+                      borderSide: BorderSide(color: Colors.deepPurple.shade600),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(28.0),
+                      borderSide: BorderSide(
+                        color: Colors.amber,
+                      ),
+                    ),
+                    hintText: "Enter phone number",
+                    prefixIcon: Icon(Icons.phone, color: Colors.black45),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter phone number';
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    _phoneNo = value;
+                  },
+                ),
+              ),
+              Container(
+                width: 500,
+                padding: EdgeInsets.all(10.0),
+                child: TextFormField(
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: InputDecoration(
+                    labelText: "Email",
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(28.0),
+                      borderSide: BorderSide(color: Colors.deepPurple.shade600),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(28.0),
+                      borderSide: BorderSide(
+                        color: Colors.amber,
+                      ),
+                    ),
+                    hintText: "Enter email",
+                    prefixIcon: Icon(Icons.email, color: Colors.black45),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter email';
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    _email = value;
+                  },
+                ),
+              ),
+              Padding(padding: EdgeInsets.all(10)),
+              ElevatedButton(
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    _formKey.currentState!.save();
+
+                    Navigator.pop(context);
+                  }
+                },
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.deepPurple.shade600,
+                  onPrimary: Colors.white,
+                ),
+                child: Text('Submit'),
+              ),
             ],
           ),
         ));

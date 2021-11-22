@@ -5,7 +5,6 @@ class ProfileFormModel extends ChangeNotifier {
   String? _userName;
   String? _phoneNumber;
   String? _email;
-  DateTime? _dateOfBirth;
   int? _age;
   String? _gender;
   String? _password;
@@ -20,7 +19,6 @@ class ProfileFormModel extends ChangeNotifier {
         'username': _userName,
         'phone': _phoneNumber,
         'email': _email,
-        'date of birth': _dateOfBirth,
         'age': _age,
         'gender': _gender,
         'uid': _uid,
@@ -31,7 +29,6 @@ class ProfileFormModel extends ChangeNotifier {
     _userName = '';
     _phoneNumber = '';
     _email = '';
-    _dateOfBirth = null;
     _password = '';
     _isLoggedIn = false;
     notifyListeners();
@@ -61,15 +58,6 @@ class ProfileFormModel extends ChangeNotifier {
 
   set email(String? val) {
     _email = val;
-    notifyListeners();
-  }
-
-  DateTime? get dateOfBirth {
-    return _dateOfBirth;
-  }
-
-  set dateOfBirth(DateTime? val) {
-    _dateOfBirth = val;
     notifyListeners();
   }
 
@@ -151,7 +139,6 @@ class UserDB {
       {this.userName,
       this.phoneNumber,
       this.email,
-      this.dateOfBirth,
       this.age,
       this.gender,
       this.password,
@@ -161,7 +148,6 @@ class UserDB {
   String? userName;
   String? phoneNumber;
   String? email;
-  String? dateOfBirth;
   int? age;
   String? gender;
   String? password;

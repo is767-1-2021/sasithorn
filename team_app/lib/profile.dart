@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:team_app/favorite_page.dart';
 import 'package:team_app/help_center_page.dart';
@@ -16,11 +18,23 @@ var image = Image(
 );
 
 class MyProfilePage extends StatefulWidget {
+  const MyProfilePage({Key? key}) : super(key: key);
+
   @override
   _MyProfilePageState createState() => _MyProfilePageState();
 }
 
 class _MyProfilePageState extends State<MyProfilePage> {
+  final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
+      .collection('group_users')
+      .where('uid', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+      .snapshots();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   final List<String> _listItem = [
     'History Deal',
     'Favorite',
@@ -99,7 +113,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'userName', //${context.read<ProfileFormModel>().userName}
+                            'fullname', //${context.read<ProfileFormModel>().userName}
                             style: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold,

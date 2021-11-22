@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
+import 'package:team_app/Profile2.dart';
 import 'package:team_app/chatpage.dart';
 import 'package:team_app/controllers/deal_controller.dart';
 import 'package:team_app/model/deal_model.dart';
@@ -227,7 +228,7 @@ class _DealPageState extends State<DealPage> {
                       TextStyle(color: Colors.deepPurple[900], fontSize: 15)),
               onTap: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => MyProfilePage()));
+                    MaterialPageRoute(builder: (context) => Profile2Page()));
               },
               trailing: Icon(Icons.person_pin_rounded),
             ),

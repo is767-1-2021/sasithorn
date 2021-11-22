@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:team_app/Profile2.dart';
 import 'package:team_app/profile.dart';
 
 class TermsOfServicePage extends StatelessWidget {
@@ -16,7 +17,7 @@ class TermsOfServicePage extends StatelessWidget {
         leading: IconButton(
           onPressed: () {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => MyProfilePage()));
+                MaterialPageRoute(builder: (context) => Profile2Page()));
           },
           icon: Icon(Icons.arrow_back),
         ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:team_app/Profile2.dart';
 import 'package:team_app/edit_profile.dart';
 import 'package:team_app/firstpage.dart';
 import 'package:team_app/historyPageDeal.dart';
@@ -47,7 +48,7 @@ class DealApp extends StatelessWidget {
               controller: controller,
             ),
         '/editProfile': (context) => EditProfilePage(),
-        '/profile': (context) => MyProfilePage(),
+        '/profile': (context) => Profile2Page(),
         '/historydeal': (context) => HistoryDealPage(),
         // '/joindeal': (context) => JoinDeal(ds: ds),
         '/DealPage': (context) => DealPage(controller: controller)
